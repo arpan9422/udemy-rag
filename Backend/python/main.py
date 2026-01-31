@@ -3,10 +3,15 @@ from pydantic import BaseModel
 from typing import List
 import google.generativeai as genai
 import base64
+import os
 
-genai.configure(api_key="AIzaSyA-pxXC_6eZOvnrv6C0Y-Pz71MGFMGe6RU")
+api_key = os.getenv("GENAI_API_KEY")
 
-app = FastAPI()
+if not api_key:
+    raise ValueError("GENAI_API_KEY environment variable is not set")
+
+genai.configure(api_key=api_key)
+
 
 # --------------------------
 # Request model for text
